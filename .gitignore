@@ -1,0 +1,21 @@
+node_modules/
+dist/
+build/
+.env
+*.db
+*.db-journal
+__pycache__/
+.venv/
+.DS_Store
+*.log
+.vite/
+coverage/
+
+# SQLite write-ahead files
+*.db-shm
+*.db-wal
+
+# test + build output
+test-results/
+playwright-report/
+.playwright/

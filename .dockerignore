@@ -1,0 +1,13 @@
+node_modules
+apps/*/node_modules
+apps/web/dist
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.local
+.git
+services/scheduler/.venv
+services/scheduler/__pycache__
+e2e/test-results
+playwright-report

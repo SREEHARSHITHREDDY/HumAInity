@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --rail: 232px;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  /* Every number that a person compares against another number is tabular. */
+  .num { @apply font-mono tabular-nums; font-variant-numeric: tabular-nums; }
+
+  :focus-visible {
+    outline: 2px solid #0B7A6B;
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  ::selection { background: #0B7A6B; color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* A shift block in the roster grid. Colour encodes shift type, width
+     encodes nothing — length is in the label, because a 6h and a 7.5h block
+     differing by 20% of width is not readable at a glance. */
+  .shift {
+    @apply rounded-[3px] px-1.5 py-1 text-2xs leading-tight font-medium num;
+  }
+}
+
+/* One orchestrated page-load moment, not a per-section fade. */
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .32s cubic-bezier(.2,.7,.3,1) both; }

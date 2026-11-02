@@ -1,0 +1,25 @@
+services:
+  humainity:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      API_PORT: 4000
+      WEB_ORIGIN: http://localhost:4000
+      SOLVER_URL: http://127.0.0.1:8000
+      FIREWALL_STRICT_MODE: "true"
+      FAIRNESS_MIN_GROUP_SIZE: "5"
+      # Generate both with: openssl rand -hex 32
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env or the environment}
+      HEALTH_ENCRYPTION_KEY: ${HEALTH_ENCRYPTION_KEY:?set HEALTH_ENCRYPTION_KEY}
+      # Loads synthetic demonstration data on first start. Leave unset for real use.
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-false}
+    volumes:
+      # The two databases live here. Back this up; losing it loses everything,
+      # and losing HEALTH_ENCRYPTION_KEY makes the backup unreadable.
+      - humainity-data:/data
+    restart: unless-stopped
+
+volumes:
+  humainity-data:

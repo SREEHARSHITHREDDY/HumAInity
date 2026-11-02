@@ -1,0 +1,30 @@
+{
+  "name": "humainity",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Privacy-preserving, health-aware healthcare workforce management platform",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run db:reset && npm run setup:solver",
+    "db:reset": "npm -w @humainity/api run db:reset",
+    "dev": "concurrently -n api,web,solver -c blue,magenta,green \"npm:dev:api\" \"npm:dev:web\" \"npm:dev:solver\"",
+    "dev:api": "npm -w @humainity/api run dev",
+    "dev:web": "npm -w @humainity/web run dev",
+    "dev:solver": "node scripts/run-solver.mjs",
+    "build": "npm -w @humainity/api run build && npm -w @humainity/web run build",
+    "test": "npm -w @humainity/api run test",
+    "setup:solver": "node scripts/setup-solver.mjs",
+    "lint": "npm -w @humainity/api run lint",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "typecheck": "tsc -p apps/api/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
+    "test:e2e": "playwright test",
+    "test:all": "npm run lint && npm run typecheck && npm test && npm run test:e2e"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "@playwright/test": "1.63.0"
+  }
+}
